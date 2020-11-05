@@ -1,6 +1,6 @@
 # udfscp
 
-Simply utility to parse a UDF SSH link to produce valid SCP file copy command syntax
+Simple utility to parse a UDF SSH link to produce valid SCP file copy command syntax
 
 `Usage:   udfscp [UDF SSH URL] [COPY-FROM-PATH] [COPY-TO-PATH]`
 
