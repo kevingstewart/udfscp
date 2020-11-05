@@ -1,0 +1,25 @@
+#!/usr/bin/env bash
+
+## UDF SCP Helper script
+## Author: Kevin Stewart (2020/11/05)
+## Utility to parse a provided UDF SSH link to enable quick scp file upload/download
+## UDF links are presented as "ssh://guid-url:port" and scp requires "scp -p [port] [url]:[remote-path] [local-path]"
+## This script simply parses the UDF SSH link to create the correct scp syntax.
+
+if [ "$#" -ne 3 ]
+then
+    echo "UDF SCP Helper Utility"
+    echo ""
+    echo "  Usage:   udfscp [UDF SSH URL] [COPY-FROM-PATH] [COPY-TO-PATH]"
+    echo ""
+    echo "  Example: udfscp ssh://9c51a294-f57a-41cb-b102-0edb9c7f4cd7.access.udf.f5.com:47000 /config ."
+    echo ""
+    exit
+fi
+
+## pull URL and port from UDF SSH string
+url=`echo $1 |sed 's/ssh:\/\///;s/:.*//'`
+port=`echo $1 |sed 's/.*.udf.f5.com://'`
+
+## initiate scp
+scp -P ${port} root@${url}:$2 $3
